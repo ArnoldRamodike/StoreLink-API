@@ -19,6 +19,14 @@ enum Role {
   USER
 }
 
+enum OrderEventStatus {
+  PENDING
+  ACCEPTED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
 model User {
   id                     Int    @id @default(autoincrement())
   name                   String
@@ -28,9 +36,12 @@ model User {
   defaultShippingAddress Int?
   defaultBillingAddress  Int?
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   Address   Address[]
+  CartItems CartItems[]
+  Orders    Orders[]
 
   @@map("users")
 }
@@ -62,5 +73,71 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  OrderProduct OrderProduct[]
+  CartItems    CartItems[]
+
   @@map("products")
+}
+
+model CartItems {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cart_items")
+}
+
+model Orders {
+  id        Int              @id @default(autoincrement())
+  netAmount Decimal
+  address   String
+  status    OrderEventStatus @default(PENDING)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products   OrderProduct[]
+  orderEvent OrderEvent[]
+
+  @@map("orders")
+}
+
+model OrderProduct {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
+  orderId Int
+  order   Orders @relation(fields: [orderId], references: [id])
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("order_product")
+}
+
+model OrderEvent {
+  id     Int              @id @default(autoincrement())
+  status OrderEventStatus @default(PENDING)
+
+  orderId Int
+  order   Orders @relation(fields: [orderId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("order_events")
 }
