@@ -66,6 +66,7 @@ export const updateProduct = async (req: Request, res:Response, next: NextFuncti
         throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
     }
 }
+
 export const deleteProduct = async (req: Request, res:Response, next: NextFunction) => {
     try {
          await prismaClient.product.delete({
@@ -78,4 +79,25 @@ export const deleteProduct = async (req: Request, res:Response, next: NextFuncti
     } catch (err) {
         throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
     }
+}
+export const searchProducts = async (req: Request, res:Response, next: NextFunction) => {
+    // try {
+        const products =  await prismaClient.product.findMany({
+            where: {
+               name: {
+                search: req.query.q?.toString()
+               },
+               description: {
+                search: req.query.q?.toString()
+               },
+               tags: {
+                search: req.query.q?.toString()
+               },
+            }
+        });
+        
+        res.json(products)
+    // } catch (err) {
+    //     throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
+    // }
 }

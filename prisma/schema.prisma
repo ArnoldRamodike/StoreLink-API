@@ -16,6 +16,7 @@ datasource db {
 
 enum Role {
   ADMIN
+  VENDOR
   USER
 }
 
@@ -76,6 +77,7 @@ model Product {
   OrderProduct OrderProduct[]
   CartItems    CartItems[]
 
+  @@fulltext([name, description, tags])
   @@map("products")
 }
 
