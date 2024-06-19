@@ -29,7 +29,7 @@ export const listProducts = async (req: Request, res:Response, next: NextFunctio
 
         res.json({count, data: products})
     } catch (err) {
-        throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('Product not found', errorCode.NOT_FOUND)
     }
 }
 export const getProductById = async (req: Request, res:Response, next: NextFunction) => {
@@ -43,7 +43,7 @@ export const getProductById = async (req: Request, res:Response, next: NextFunct
 
         res.json(product)
     } catch (err) {
-        throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('Product not found', errorCode.NOT_FOUND)
     }
 }
 export const updateProduct = async (req: Request, res:Response, next: NextFunction) => {
@@ -63,7 +63,7 @@ export const updateProduct = async (req: Request, res:Response, next: NextFuncti
 
         res.json(updatedProduct)
     } catch (err) {
-        throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('Product not found', errorCode.NOT_FOUND)
     }
 }
 
@@ -77,11 +77,12 @@ export const deleteProduct = async (req: Request, res:Response, next: NextFuncti
         
         res.json("Product deleted successfully")
     } catch (err) {
-        throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('Product not found', errorCode.NOT_FOUND)
     }
 }
 export const searchProducts = async (req: Request, res:Response, next: NextFunction) => {
     // try {
+    // Implement pagination.
         const products =  await prismaClient.product.findMany({
             where: {
                name: {

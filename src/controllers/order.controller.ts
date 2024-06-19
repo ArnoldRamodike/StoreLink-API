@@ -106,7 +106,7 @@ export const cancelOrder = async (req: Request, res:Response) => {
     
         res.json(updatedOrder)
       } catch (error) {
-        throw new NotFoundException("Order not found", errorCode.USER_NOT_FOUND);
+        throw new NotFoundException("Order not found", errorCode.NOT_FOUND);
       }
 }
 
@@ -126,7 +126,7 @@ export const getOrderById = async (req: Request, res:Response) => {
 
     res.json(order)
   } catch (error) {
-    throw new NotFoundException("Order not found", errorCode.USER_NOT_FOUND);
+    throw new NotFoundException("Order not found", errorCode.NOT_FOUND);
   }
 }
 
@@ -170,7 +170,7 @@ export const listUserOrders = async (req: Request, res:Response) => {
 
         res.json(order)
     } catch (error) {
-        throw new NotFoundException('Order not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('Order not found', errorCode.NOT_FOUND)
     }
 }
 
@@ -195,6 +195,6 @@ export const changeOrderStatus = async (req: Request, res:Response) => {
 
         res.json(order)
     } catch (error) {
-        throw new NotFoundException('Order not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('Order not found', errorCode.NOT_FOUND)
     }
 }

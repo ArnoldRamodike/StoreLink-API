@@ -26,7 +26,7 @@ export const addItemToCart = async (req: Request, res:Response) => {
 
         res.json(cart);
     } catch (error) {
-        throw new NotFoundException("Product not found", errorCode.USER_NOT_FOUND);
+        throw new NotFoundException("Product not found", errorCode.NOT_FOUND);
     }
 
     res.json();
@@ -44,7 +44,7 @@ export const deleteItemsFromCart = async (req: Request, res:Response) => {
 
         res.json({success:true});
     } catch (error) {
-        throw new NotFoundException("Product not found", errorCode.USER_NOT_FOUND);
+        throw new NotFoundException("Product not found", errorCode.NOT_FOUND);
     }
 
     res.json();
@@ -67,7 +67,7 @@ export const changeQuantity = async (req: Request, res:Response) => {
 
         res.json(updatedData);
     } catch (error) {
-        throw new NotFoundException("Product not found", errorCode.USER_NOT_FOUND);
+        throw new NotFoundException("Product not found", errorCode.NOT_FOUND);
     }
     res.json();
 }

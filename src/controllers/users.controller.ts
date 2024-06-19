@@ -29,7 +29,7 @@ export const deleteAddresss = async (req: Request, res:Response) => {
        
        res.json({success: true})
    } catch (err) {
-       throw new NotFoundException('Product not found', errorCode.PRODUCT_NOT_FOUND)
+       throw new NotFoundException('Product not found', errorCode.NOT_FOUND)
    }
     
 }
@@ -59,10 +59,10 @@ export const updateUser = async (req: Request, res:Response) => {
                 });
                 
             } catch (err) {
-                throw new NotFoundException('Shipping Addres not found', errorCode.PRODUCT_NOT_FOUND)
+                throw new NotFoundException('Shipping Addres not found', errorCode.NOT_FOUND)
             }  
             if (shippingAddress.userId != req.user?.id) {
-                throw new BadRequestsException('Address does not beong to user', errorCode.INTERNAL_EXCEPTION)
+                throw new BadRequestsException('Address does not beong to user', errorCode.SERVER_ERROR)
             }
         }
 
@@ -75,11 +75,11 @@ export const updateUser = async (req: Request, res:Response) => {
                 });
                       
             } catch (err) {
-                throw new NotFoundException('Billing Addres not found', errorCode.PRODUCT_NOT_FOUND)
+                throw new NotFoundException('Billing Addres not found', errorCode.NOT_FOUND)
             }  
             
             if (billingAddress.userId != req.user?.id) {
-                throw new BadRequestsException('Address does not beong to user', errorCode.INTERNAL_EXCEPTION)
+                throw new BadRequestsException('Address does not beong to user', errorCode.SERVER_ERROR)
             }
         }
 
@@ -115,7 +115,7 @@ export const getUserById = async (req: Request, res:Response) => {
 
         res.json(user)
     } catch (error) {
-        throw new NotFoundException('User not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('User not found', errorCode.NOT_FOUND)
     }
 }
 
@@ -133,6 +133,6 @@ export const changeUserRole = async (req: Request, res:Response) => {
 
         res.json(user)
     } catch (error) {
-        throw new NotFoundException('User not found', errorCode.PRODUCT_NOT_FOUND)
+        throw new NotFoundException('User not found', errorCode.NOT_FOUND)
     }
 }
